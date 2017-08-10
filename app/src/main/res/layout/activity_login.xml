@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorTeal500"
+    android:gravity="center"
+    style="@style/CustomTheme"
+    tools:context="com.romanvytv.webapiandroidtest.activities.LoginActivity">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTeal800"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editEmailLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="50dp"
+            android:layout_weight="1"
+
+            android:ems="10"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:backgroundTint="@color/colorTeal50"
+            android:textColor="@color/colorTeal50"
+            android:textColorHint="@color/colorTeal50" />
+
+        <EditText
+            android:id="@+id/editPasswordLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:backgroundTint="@color/colorTeal50"
+            android:padding="16dp"
+            android:textColor="@color/colorTeal50"
+            android:textColorHint="@color/colorTeal50" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="@string/keep_me_signed_in"
+            android:textColor="@color/colorTeal50"
+            android:textSize="12sp"
+            app:buttonTint="@color/colorTeal50" />
+
+        <Button
+            android:id="@+id/btnSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@color/colorTeal900"
+            android:padding="16dp"
+            android:text="@string/sign_in"
+            android:textColor="@color/colorTeal50" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:background="@color/colorTeal900"
+            android:text="@string/sign_up"
+            android:textColor="@color/colorTeal50"/>
+
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="82dp"
+            android:layout_marginRight="82dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="@string/forgot_password"
+            android:textColor="@color/colorTeal50"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
