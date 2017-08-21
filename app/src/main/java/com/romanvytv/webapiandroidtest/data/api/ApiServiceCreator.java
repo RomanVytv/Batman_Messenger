@@ -1,10 +1,10 @@
-package com.romanvytv.webapiandroidtest.web;
+package com.romanvytv.webapiandroidtest.data.api;
 
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.romanvytv.webapiandroidtest.web.helpers.AuthenticationInterceptor;
+import com.romanvytv.webapiandroidtest.data.api.utils.AuthenticationInterceptor;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -17,8 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiServiceCreator {
 
     //static final String BASE_URL = "http://romanvytv-001-site1.htempurl.com/";
-    // static final String BASE_URL = "http://192.168.0.100/WebApi/";
-    static final String BASE_URL = "http://192.168.43.177/WebApi/";
+     static final String BASE_URL = "http://192.168.0.100/WebApi/";
+    //static final String BASE_URL = "http://192.168.43.177/WebApi/";
+    //static final String BASE_URL = "http://192.168.0.101/WebApi/";
 
     private static Gson gson = new GsonBuilder()
             .setLenient()

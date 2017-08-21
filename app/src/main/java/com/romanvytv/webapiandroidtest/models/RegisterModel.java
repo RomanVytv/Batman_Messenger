@@ -21,6 +21,9 @@ public class RegisterModel {
     @SerializedName("Surname")
     @Expose
     private String surname;
+    @SerializedName("Sex")
+    @Expose
+    private String sex;
     @SerializedName("BornDate")
     @Expose
     private String bornDate;
@@ -28,12 +31,13 @@ public class RegisterModel {
     @Expose
     private String phoneNumber;
 
-    public RegisterModel(String email, String password, String confirmPassword, String name, String surname, String bornDate, String phoneNumber) {
+    public RegisterModel(String email, String password, String confirmPassword, String name, String surname, String gender, String bornDate, String phoneNumber) {
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.name = name;
         this.surname = surname;
+        this.sex = gender;
         this.bornDate = bornDate;
         this.phoneNumber = phoneNumber;
     }
@@ -97,7 +101,14 @@ public class RegisterModel {
 
     @Override
     public String toString() {
-        return "User:" + name + " " + surname + " - " + email;
+        return "RegisterModel{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", bornDate='" + bornDate + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
-
 }

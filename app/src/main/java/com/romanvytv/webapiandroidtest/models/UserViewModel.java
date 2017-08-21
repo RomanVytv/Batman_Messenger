@@ -86,7 +86,14 @@ public class UserViewModel {
 
     @Override
     public String toString() {
-        return "User:" + name + " " + surname + " - " + email;
+        return "UserViewModel{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", bornDate='" + bornDate + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", registrationDate='" + registrationDate + '\'' +
+                '}';
     }
-
 }

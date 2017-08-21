@@ -1,4 +1,4 @@
-package com.romanvytv.webapiandroidtest.web.helpers;
+package com.romanvytv.webapiandroidtest.data.api.utils;
 
 import java.io.IOException;
 import okhttp3.Interceptor;

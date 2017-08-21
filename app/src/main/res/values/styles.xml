@@ -14,6 +14,18 @@
         <item name="colorPrimaryDark">@color/colorTeal700</item>
         <item name="colorAccent">@color/colorTeal100</item>
         <item name="android:statusBarColor">@color/colorTeal800</item>
+        <item name="android:colorAccent">@color/colorTeal500</item>
     </style>
+
+    <style name="CustonDateDialogTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="colorAccent">@color/colorTeal700</item>
+        <item name="android:colorAccent">@color/colorTeal700</item>
+        <item name="android:colorPrimary">@color/colorTeal500</item>
+        <item name="android:colorPrimaryDark">@color/colorTeal700</item>
+    </style>
+
+    <style name="CustomTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="CustomTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
