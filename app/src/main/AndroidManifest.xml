@@ -27,6 +27,13 @@
         </activity>
         <activity
             android:name=".presentation.chat.ChatActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
+
+        </activity>
+
+        <activity
+            android:name=".presentation.friends.FriendsActivity"
             android:screenOrientation="portrait">
 
         </activity>
@@ -37,6 +44,14 @@
         <activity
             android:name=".presentation.register.RegisterActivity"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".presentation.search.SearchActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".presentation.user.UserActivity"
+            android:screenOrientation="portrait">
         </activity>
 
     </application>

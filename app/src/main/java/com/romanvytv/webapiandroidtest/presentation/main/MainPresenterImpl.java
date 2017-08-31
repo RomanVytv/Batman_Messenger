@@ -1,7 +1,10 @@
 package com.romanvytv.webapiandroidtest.presentation.main;
 
 
+import com.romanvytv.webapiandroidtest.models.ChatViewModel;
 import com.romanvytv.webapiandroidtest.models.UserViewModel;
+
+import java.util.List;
 
 public class MainPresenterImpl implements MainPresenter, MainInteractor.OnLoadingFinishedListener {
 
@@ -13,6 +16,7 @@ public class MainPresenterImpl implements MainPresenter, MainInteractor.OnLoadin
         this.mainInteractor = new MainInteractorImpl();
     }
 
+
     @Override
     public void fillUserData(String token) {
         if (mainView != null) {
@@ -22,19 +26,28 @@ public class MainPresenterImpl implements MainPresenter, MainInteractor.OnLoadin
     }
 
     @Override
-    public void onSuccess(UserViewModel user) {
+    public void loadChats(String token) {
+        mainInteractor.loadChats(token,this);
+    }
+
+    @Override
+    public void onSuccessUser(UserViewModel user) {
+        if(mainView != null){
+            mainView.fillCurrentUser(user);
+        }
+    }
+
+    @Override
+    public void onSuccessChats(List<ChatViewModel> chats) {
         if(mainView != null){
             mainView.hideProgress();
-            mainView.fillCurrentUser(user);
-
+            mainView.fillChats(chats);
         }
-
     }
 
     @Override
     public void showError(String text) {
         if(mainView != null){
-            //mainView.hideProgress();
             mainView.showError(text);
         }
     }

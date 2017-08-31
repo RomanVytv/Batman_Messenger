@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -107,8 +108,8 @@ public class RegisterActivity extends Activity implements RegisterView {
                 password.getText().toString(),
                 confirmPassword.getText().toString(),
                 name.getText().toString(),
-                getGender(),
                 surname.getText().toString(),
+                getGender(),
                 bornDate.getText().toString(),
                 phoneNumber.getText().toString()));
     }
@@ -126,11 +127,14 @@ public class RegisterActivity extends Activity implements RegisterView {
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @OnClick(R.id.backToLoginBtn)

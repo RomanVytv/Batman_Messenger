@@ -21,7 +21,7 @@ public interface ChatService {
     Call<List<ChatViewModel>> getChats();
 
     @GET("api/chats/{id}")
-    Call<ChatViewModel> getChatById(@Path("id") int chatId);
+    Call<ChatViewModel> getChatById(@Path("id") int id);
 
     @POST("api/chats/{id}/send")
     Call<ResponseBody> sendMessege(@Path("id") int chatId, @Body String text);
@@ -35,5 +35,7 @@ public interface ChatService {
     @GET("api/chats/{chatId}/messages")
     Call<List<MessageViewModel>> openChat(@Path("chatId") int chatId);
 
+    @GET("api/chats/{friendId}/chatByFriend")
+    Call<ChatViewModel> getChatByFriendId(@Path("friendId") String friendId);
 
 }

@@ -45,6 +45,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
     @Override
     public void onSuccess(String token) {
         if (loginView != null) {
+            loginView.hideProgress();
             loginView.navigateToHome(token);
         }
     }
@@ -52,6 +53,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
     @Override
     public void showError(String text) {
         if(loginView != null){
+            loginView.hideProgress();
             loginView.showError(text);
         }
     }

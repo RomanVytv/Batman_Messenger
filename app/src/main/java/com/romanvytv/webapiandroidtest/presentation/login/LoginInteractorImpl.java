@@ -24,12 +24,10 @@ public class LoginInteractorImpl implements LoginInteractor {
         if (!emailValidator.validate(email)){
             listener.onEmailError();
             error = true;
-            return;
         }
         if (!passwordValidator.validate(password)){
             listener.onPasswordError();
             error = true;
-            return;
         }
         if (!error){
             accountService.getToken("password", email, password)
@@ -37,10 +35,12 @@ public class LoginInteractorImpl implements LoginInteractor {
                         @Override
                         public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
                             String token = "";
-                            if(response.body() != null) {
+                            if(response.body() != null && response.isSuccessful()) {
                                 token = "Bearer " + response.body().getAccessToken();
+                                listener.onSuccess(token);
+                            }else{
+                                listener.showError(response.message() + "\n Invalid email or password");
                             }
-                            listener.onSuccess(token);
                         }
 
                         @Override

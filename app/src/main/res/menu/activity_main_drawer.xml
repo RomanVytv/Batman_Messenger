@@ -5,15 +5,15 @@
         <item
             android:id="@+id/friends"
             android:icon="@drawable/ic_friends_teal_50_36dp"
-            android:title="Friends" />
+            android:title="@string/friends" />
         <item
             android:id="@+id/invite_friends"
             android:icon="@drawable/ic_invite_friends_black_36dp"
-            android:title="Invite friends" />
+            android:title="@string/invite_friends" />
         <item
             android:id="@+id/find_friends"
             android:icon="@drawable/ic_search_black_36dp"
-            android:title="Find friends" />
+            android:title="@string/find_friends" />
     </group>
 
     <group android:checkableBehavior="single">
@@ -21,11 +21,11 @@
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_settings_black_36dp"
-            android:title="Settings" />
+            android:title="@string/action_settings" />
         <item
             android:id="@+id/log_out"
             android:icon="@drawable/ic_log_out_black_36dp"
-            android:title="Log out" />
+            android:title="@string/log_out" />
     </group>
 
 </menu>

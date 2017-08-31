@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,17 +24,16 @@ import com.romanvytv.webapiandroidtest.R;
 import com.romanvytv.webapiandroidtest.models.ChatViewModel;
 import com.romanvytv.webapiandroidtest.models.UserViewModel;
 import com.romanvytv.webapiandroidtest.presentation.chat.ChatActivity;
+import com.romanvytv.webapiandroidtest.presentation.friends.FriendsActivity;
 import com.romanvytv.webapiandroidtest.presentation.login.LoginActivity;
-import com.romanvytv.webapiandroidtest.utils.RecyclerItemClickListener;
+import com.romanvytv.webapiandroidtest.presentation.search.SearchActivity;
 
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
         implements MainView, NavigationView.OnNavigationItemSelectedListener {
-
 
     private Toolbar mainToolbar;
     private DrawerLayout drawer;
@@ -48,20 +48,12 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView.Adapter adapter;
     private LinearLayoutManager  layoutManager;
 
-    List<ChatViewModel> chats = Arrays.asList(
-            new ChatViewModel[]{
-                    new ChatViewModel("131232", "Chat 1", "01.01.1234"),
-                    new ChatViewModel("131232", "Chat 2", "01.01.1234"),
-                    new ChatViewModel("131232", "Chat 3", "01.01.1234"),
-                    new ChatViewModel("131232", "Chat 4", "01.01.1234"),
-                    new ChatViewModel("131232", "Chat 5", "01.01.1234"),
-                    new ChatViewModel("131232", "Chat 6", "01.01.1234"),
-                    new ChatViewModel("131232", "Chat 7", "01.01.1234"),
-                    new ChatViewModel("131232", "Chat 8", "01.01.1234"),
-                    new ChatViewModel("131232", "Chat 9", "01.01.1234")});
+    private TextView tvChatsNotFound;
+
+    List<ChatViewModel> chats;
+
 
     @Override
-    //TODO: зробити status bar прозорим для Navdrawer'a
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -71,13 +63,20 @@ public class MainActivity extends AppCompatActivity
         mainToolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(mainToolbar);
 
+        tvChatsNotFound = (TextView) findViewById(R.id.tvChatsNotFound);
+
         initNavigationDrawer();
-
-        initRecycleView();
-
         loadCurrentUser();
+        loadUsersChats(token);
+
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadUsersChats(token);
+    }
 
     @Override
     public void onBackPressed() {
@@ -91,15 +90,18 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
+        // Handle navigation view main_chats_item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.friends) {
-
+            startActivity(new Intent(this, FriendsActivity.class));
         } else if (id == R.id.invite_friends) {
-            //TODO: send SMS-invite
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("message/rfc822");
+            intent.putExtra(Intent.EXTRA_TEXT, "Hi, let's use BatMessenger!");
+            startActivity(intent);
         } else if (id == R.id.find_friends) {
-
+            startActivity(new Intent(this, SearchActivity.class));
         } else if (id == R.id.settings) {
             //TODO: create settings activity
         } else if (id == R.id.log_out) {
@@ -118,8 +120,12 @@ public class MainActivity extends AppCompatActivity
     public void loadCurrentUser() {
 
         if (getIntent().getStringExtra("TOKEN") != null) {
-            token = getIntent().getStringExtra("TOKEN");
-        } else if (Hawk.contains("authToken")) {
+            token = getIntent().getExtras().get("TOKEN").toString();
+        } else if(Hawk.contains("keepSignedIn") && Hawk.get("keepSignedIn").equals("false")){
+            Hawk.delete("authToken");
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }else if (Hawk.contains("authToken")) {
             token = Hawk.get("authToken");
         } else {
             startActivity(new Intent(this, LoginActivity.class));
@@ -130,24 +136,34 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void loadUsersChats() {
-
+    public void loadUsersChats(String token) {
+        presenter.loadChats(token);
     }
 
     @Override
     public void showProgress() {
-        mainToolbar.setTitle("Networking...");
+        getSupportActionBar().setTitle("Networking...");
     }
 
     @Override
     public void hideProgress() {
-        mainToolbar.setTitle(R.string.app_name);
+        getSupportActionBar().setTitle(R.string.app_name);
     }
 
     @Override
     public void fillCurrentUser(UserViewModel user) {
         navigationDrawerEmail.setText(user.getEmail());
         navigationDrawerFullName.setText(user.getName() + " " + user.getSurname());
+    }
+
+    @Override
+    public void fillChats(List<ChatViewModel> chats){
+        if(chats.isEmpty()){
+            tvChatsNotFound.setVisibility(View.VISIBLE);
+        }else{
+            this.chats = chats;
+            initRecycleView();
+        }
     }
 
     @Override
@@ -165,21 +181,24 @@ public class MainActivity extends AppCompatActivity
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
-        adapter =  new ChatsAdapter(chats);
+        adapter =  new ChatsAdapter(chats, new ChatsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ChatViewModel item) {
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                intent.putExtra("chatId", item.getId());
+                intent.putExtra("invokeby","main");
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getBaseContext(),
-                new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(MainActivity.this, ChatActivity.class);
-                        intent.putExtra("chatTitle",chats.get(position).getName());
-                        intent.putExtra("chatId", chats.get(position).getId());
-                        startActivity(intent);
-                    }
-                }));
+
     }
 
     private void initNavigationDrawer() {
+        // Enable status bar translucency (requires API 19)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -56,11 +57,14 @@ public class LoginActivity extends Activity implements LoginView  {
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override
@@ -75,9 +79,8 @@ public class LoginActivity extends Activity implements LoginView  {
 
     @Override
     public void navigateToHome(String token) {
-        if(keepSignedInCheckBox.isChecked())
-            Hawk.put("authToken", token);
-
+        Hawk.put("keepSignedIn", keepSignedInCheckBox.isChecked());
+        Hawk.put("authToken", token);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("TOKEN", token);
         startActivity(intent);

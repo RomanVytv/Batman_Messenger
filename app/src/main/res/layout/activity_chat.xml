@@ -18,31 +18,68 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/editMessege"
-        android:padding="16dp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleViewChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/chatToolbar"
+        android:layout_above="@+id/editField" />
+
+    <LinearLayout
+        android:background="@color/colorTeal50"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/colorTeal50"
-        android:gravity="bottom"
-        android:inputType="text"
-        android:hint="@string/messege"
         android:layout_alignParentBottom="true"
-        />
+        android:orientation="horizontal"
+        android:id="@+id/editField"
+        android:weightSum="6">
 
-    <ImageButton
-        android:id="@+id/send"
-        android:background="@color/colorTeal50"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_send_teal_500_36dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/editMessege"
-        android:layout_alignEnd="@+id/editMessege"/>
+        <EditText
+            android:id="@+id/editMessege"
+            android:padding="16dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/colorTeal50"
+            android:inputType="text"
+            android:hint="@string/messege"
+            android:layout_weight="5"
+            android:lines="1"
+            />
+
+        <ImageButton
+            android:id="@+id/send"
+            android:background="@color/colorTeal50"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send_teal_500_36dp" />
+
+    </LinearLayout>
+
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.romanvytv.webapiandroidtest.presentation.search.SearchActivity"
+        tools:showIn="@layout/activity_search">
+
+        <ProgressBar
+            android:id="@+id/progressChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+
+    </FrameLayout>
 
 
 </RelativeLayout>

@@ -31,5 +31,15 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/tvChatsNotFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableTop="@drawable/ic_speaker_notes_off_grey_500_24dp"
+        android:text="@string/chats_not_found"
+        android:textColor="#9E9E9E"
+        android:visibility="gone"/>
+
 </FrameLayout>
 

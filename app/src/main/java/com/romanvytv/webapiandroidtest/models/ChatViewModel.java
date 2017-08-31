@@ -8,7 +8,7 @@ public class ChatViewModel {
 
     @SerializedName("Id")
     @Expose
-    private String id;
+    private int id;
 
     @SerializedName("Name")
     @Expose
@@ -18,17 +18,17 @@ public class ChatViewModel {
     @Expose
     private String creationDate;
 
-    public ChatViewModel(String id, String name, String creationDate) {
+    public ChatViewModel(int id, String name, String creationDate) {
         this.id = id;
         this.name = name;
         this.creationDate = creationDate;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

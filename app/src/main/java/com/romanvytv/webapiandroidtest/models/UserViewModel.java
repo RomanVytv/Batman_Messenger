@@ -28,6 +28,16 @@ public class UserViewModel {
     @Expose
     private String registrationDate;
 
+    public UserViewModel(String id, String name, String surname, String bornDate, String phoneNumber, String email,String registrationDate) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.bornDate = bornDate;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.registrationDate = registrationDate;
+    }
+
     public String getId() {
         return id;
     }
@@ -95,5 +105,9 @@ public class UserViewModel {
                 ", email='" + email + '\'' +
                 ", registrationDate='" + registrationDate + '\'' +
                 '}';
+    }
+
+    public String getFullName() {
+        return name + " " + surname;
     }
 }

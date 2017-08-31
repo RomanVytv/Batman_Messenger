@@ -80,6 +80,7 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterInterap
     @Override
     public void showError(String text) {
         if (registerView != null) {
+            registerView.hideProgress();
             registerView.showError(text);
         }
     }

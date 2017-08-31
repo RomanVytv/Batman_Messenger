@@ -27,6 +27,14 @@ public class MessageViewModel {
     @Expose
     private String time;
 
+    public MessageViewModel(int id, String text, String userId, int chatId, String time) {
+        this.id = id;
+        this.text = text;
+        this.userId = userId;
+        this.chatId = chatId;
+        this.time = time;
+    }
+
     public int getId() {
         return id;
     }

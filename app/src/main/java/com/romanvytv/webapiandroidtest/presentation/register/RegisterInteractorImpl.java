@@ -63,7 +63,7 @@ public class RegisterInteractorImpl implements RegisterInteraptor {
             accountService.register(model).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if(response != null && response.isSuccessful()){
+                    if(response.isSuccessful()){
                         listener.showError("Registration successful! " +  response.message());
                         listener.onSuccess();
                     }

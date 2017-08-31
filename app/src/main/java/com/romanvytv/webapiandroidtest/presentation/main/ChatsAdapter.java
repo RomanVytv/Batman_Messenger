@@ -14,10 +14,17 @@ import java.util.List;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHolder> {
 
-    private List<ChatViewModel> chats;
+    public interface OnItemClickListener {
+        void onItemClick(ChatViewModel item);
+    }
 
-    public ChatsAdapter(List<ChatViewModel> chats) {
+    private List<ChatViewModel> chats;
+    private final OnItemClickListener listener;
+
+
+    public ChatsAdapter(List<ChatViewModel> chats, OnItemClickListener listener) {
         this.chats = chats;
+        this.listener = listener;
     }
 
     public class ChatViewHolder extends RecyclerView.ViewHolder {
@@ -30,11 +37,19 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             recyclerView = itemView.findViewById(R.id.recycleViewMain);
             chatTitle = itemView.findViewById(R.id.chatTitle);
         }
+
+        public void bind( final ChatViewModel item, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
+            });
+        }
     }
 
     @Override
     public ChatsAdapter.ChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_chats_item, parent, false);
         ChatViewHolder vh = new ChatViewHolder(v);
         return vh;
     }
@@ -42,6 +57,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
     @Override
     public void onBindViewHolder(ChatViewHolder holder, final int position) {
         holder.chatTitle.setText(chats.get(position).getName());
+        holder.bind(chats.get(position), listener);
     }
 
     @Override
@@ -54,4 +70,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
         return chats.size();
     }
 
+
     }
+

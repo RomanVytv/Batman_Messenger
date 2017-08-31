@@ -17,9 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiServiceCreator {
 
     //static final String BASE_URL = "http://romanvytv-001-site1.htempurl.com/";
-     static final String BASE_URL = "http://192.168.0.100/WebApi/";
+     //static final String BASE_URL = "http://192.168.0.100/WebApi/";
     //static final String BASE_URL = "http://192.168.43.177/WebApi/";
-    //static final String BASE_URL = "http://192.168.0.101/WebApi/";
+    static final String BASE_URL = "http://192.168.0.101/bm/";
 
     private static Gson gson = new GsonBuilder()
             .setLenient()
@@ -32,12 +32,13 @@ public class ApiServiceCreator {
 
     private static Retrofit retrofit = builder.build();
 
-    private static OkHttpClient.Builder httpClient =
-            new OkHttpClient.Builder();
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
 
     public static <S> S createService(Class<S> serviceClass) {
         return retrofit.create(serviceClass);
     }
+
 
     public static <S> S createService(Class<S> serviceClass, final String authToken) {
         if (!TextUtils.isEmpty(authToken)) {
@@ -51,7 +52,6 @@ public class ApiServiceCreator {
                 retrofit = builder.build();
             }
         }
-
         return retrofit.create(serviceClass);
     }
 

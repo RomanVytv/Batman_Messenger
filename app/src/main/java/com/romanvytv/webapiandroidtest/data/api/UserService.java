@@ -27,14 +27,20 @@ public interface UserService {
     @GET("api/users/{id}")
     Call<UserViewModel> getUserById(@Path("id") String id);
 
+    @GET("api/users/{chatId}/chatMembers")
+    Call<List<UserViewModel>> getChatMembersById(@Path("chatId") int chatId);
+
     @GET("api/users/name/{firstName}")
-    Call<UserViewModel> getUserByName(@Path("firstName") String firstName);
+    Call<List<UserViewModel>> getUserByName(@Path("firstName") String firstName);
 
     @GET("api/users/surname/{surname}")
-    Call<UserViewModel> getUserBySurname(@Path("surname") String surname);
+    Call<List<UserViewModel>> getUserBySurname(@Path("surname") String surname);
+
+    @GET("api/users/email/{email}")
+    Call<List<UserViewModel>> getUserByEmail(@Path("email") String email);
 
     @GET("api/users/phone/{phoneNumber}")
-    Call<UserViewModel> getUserByPhoneNumber(@Path("phoneNumber") String phoneNumber);
+    Call<List<UserViewModel>> getUserByPhone(@Path("phoneNumber") String phoneNumber);
 
     @POST("api/friends/{userId}")
     Call<ResponseBody> addFriend(@Path("userId") String id);
